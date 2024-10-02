@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const SensorDataSender = ({ onDataSent }) => {
     const intervalTime = 30000; // Define o intervalo de 30 segundos
@@ -6,7 +6,7 @@ const SensorDataSender = ({ onDataSent }) => {
     const sendSensorData = async (sensorId, temperatura) => {
         const dadosSensor = {
             sensor_id: sensorId,
-            temperatura: temperatura
+            temperatura: 10
         };
 
         try {
