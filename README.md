@@ -10,7 +10,7 @@ https://github.com/gitmega17/dados-app-sensores-atualizado
 
 >>Funcionalidades
 -Monitoração de temperatura e umidade em diferentes cômodos da casa (Cozinha, Sala, Quarto e Escritório).
--Envio automático de dados dos sensores a cada 60 segundos.
+-Envio automático de dados dos sensores a cada 30 segundos.
 -Envio manual de dados ao clicar nos botões correspondentes.
 -Simulação de temperaturas e umidades utilizando dados históricos.
 
