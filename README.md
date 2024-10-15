@@ -1,4 +1,8 @@
+Yuri Yve
+Rm 551358
 
+Link do Repositório:
+https://github.com/gitmega17/dados-app-sensores-atualizado
 
 #Checkpoint Desenvolvimento de Casa Monitorada#
 
