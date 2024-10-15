@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa do Professor Hete Caetano</title>
+    <title>Checkpoint Desenvolvimento de Casa Monitorada</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -20,7 +20,7 @@
             margin: 0 auto;
             border: 1px solid #dee2e6;
             border-radius: 10px;
-            background-color: #e9ecef;
+            background-color: #78b4f0;
             padding: 20px;
             /* Ajustado para dar espaço entre os cômodos */
         }
@@ -73,13 +73,13 @@
     </style>
 
     <script>
-        let token = null; // Variável para armazenar o token JWT
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcyOTAzMzYxMSwiZXhwIjoxNzI5MDM3MjExfQ.-9UNeDGt87xZZxZ1O1hqg3DZGDduPP-gsRa4l9qi834"; // Variável para armazenar o token JWT
 
         const sensors = [
-            { sensor_id: 1, room: 'Cozinha', countdown: 60, lastTemperature: null },
-            { sensor_id: 2, room: 'Sala', countdown: 60, lastTemperature: null },
-            { sensor_id: 3, room: 'Quarto', countdown: 60, lastTemperature: null },
-            { sensor_id: 4, room: 'Escritório', countdown: 60, lastTemperature: null },
+            { sensor_id: 1, room: 'Cozinha', countdown: 30, lastTemperature: null },
+            { sensor_id: 2, room: 'Sala', countdown: 30, lastTemperature: null },
+            { sensor_id: 3, room: 'Quarto', countdown: 30, lastTemperature: null },
+            { sensor_id: 4, room: 'Escritório', countdown: 30, lastTemperature: null },
         ];
 
         // Função para simular a temperatura usando dados históricos de São Paulo
@@ -181,15 +181,16 @@
 
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Minha Casa</h1>
-        <p class="text-center mb-5">Cada sensor enviará dados automaticamente a cada 60 segundos ou manualmente ao
+        <h1 class="text-center mb-4">Checkpoint Desenvolvimento de Casa Monitorada</h1>
+        <h3 class="text-center mb-4">Yuri Yve Rm 551358</h3>
+        <p class="text-center mb-5">Cada sensor enviará dados automaticamente a cada 30 segundos ou manualmente ao
             clicar no botão correspondente.</p>
 
         <div class="planta">
             <div id="cozinha" class="comodo">
                 <h3 class="text-center">Cozinha</h3>
                 <div class="sensor">
-                    <img src="images/sensor.png" alt="Sensor">
+                    <img src="images/cozinha.png" alt="Sensor">
                     <p id="countdown-1" class="countdown">Próximo envio automático em 60 segundos</p>
                     <p id="temperatura-1" class="temperatura">0 °C</p>
                     <button class="btn btn-primary sensor-button" onclick="handleSendButtonClick(1)">+</button>
@@ -199,7 +200,7 @@
             <div id="sala" class="comodo">
                 <h3 class="text-center">Sala</h3>
                 <div class="sensor">
-                    <img src="images/sensor.png" alt="Sensor">
+                    <img src="images/sala.png" alt="Sensor">
                     <p id="countdown-2" class="countdown">Próximo envio automático em 60 segundos</p>
                     <p id="temperatura-2" class="temperatura">0 °C</p>
                     <button class="btn btn-primary sensor-button" onclick="handleSendButtonClick(2)">+</button>
@@ -209,7 +210,7 @@
             <div id="quarto" class="comodo">
                 <h3 class="text-center">Quarto</h3>
                 <div class="sensor">
-                    <img src="images/sensor.png" alt="Sensor">
+                    <img src="images/quarto.png" alt="Sensor">
                     <p id="countdown-3" class="countdown">Próximo envio automático em 60 segundos</p>
                     <p id="temperatura-3" class="temperatura">0 °C</p>
                     <button class="btn btn-primary sensor-button" onclick="handleSendButtonClick(3)">+</button>
@@ -219,7 +220,7 @@
             <div id="escritorio" class="comodo">
                 <h3 class="text-center">Escritório</h3>
                 <div class="sensor">
-                    <img src="images/sensor.png" alt="Sensor">
+                    <img src="images/escritorio.png" alt="Sensor">
                     <p id="countdown-4" class="countdown">Próximo envio automático em 60 segundos</p>
                     <p id="temperatura-4" class="temperatura">0 °C</p>
                     <button class="btn btn-primary sensor-button" onclick="handleSendButtonClick(4)">+</button>

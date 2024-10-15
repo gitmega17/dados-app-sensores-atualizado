@@ -32,7 +32,7 @@ export default function LoginScreen({ navigation }) {
   
     return (
       <View style={styles.container}>
-        <Text>Usuário: fiap</Text>
+        <Text>Usuário: Checkpoint</Text>
         <Text>Senha: 123</Text>
         <Text>Login</Text>
         {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
