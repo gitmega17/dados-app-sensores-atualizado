@@ -73,7 +73,7 @@
     </style>
 
     <script>
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTcyOTAzMzYxMSwiZXhwIjoxNzI5MDM3MjExfQ.-9UNeDGt87xZZxZ1O1hqg3DZGDduPP-gsRa4l9qi834"; // Variável para armazenar o token JWT
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczMDE0MzkwNiwiZXhwIjoxNzMwMTQ3NTA2fQ.huiN061HdbeA_697icOu5J9UFT1vPVv9zKjra_j08cg";
 
         const sensors = [
             { sensor_id: 1, room: 'Cozinha', countdown: 30, lastTemperature: null },
@@ -100,7 +100,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        username: 'monitor',
+                        username: 'user',
                         password: '123',
                     }),
                 });
@@ -181,9 +181,10 @@
 
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Checkpoint Desenvolvimento de Casa Monitorada</h1>
-        <h3 class="text-center mb-4">Yuri Yve Rm 551358</h3>
-        <p class="text-center mb-5">Cada sensor enviará dados automaticamente a cada 30 segundos ou manualmente ao
+        <h1 class="text-center mb-4">Desenvolvimento de Casa Monitorada</h1>
+        <h3 class="text-center mb-4">Challenge Sprint 4</h3>
+        <h4 class="text-center mb-4">José Manuel - Samuel Victor - Yuri Yve</h4>
+        <p class="text-center mb-5">Cada sensor enviará dados automaticamente a cada 60 segundos ou manualmente ao
             clicar no botão correspondente.</p>
 
         <div class="planta">

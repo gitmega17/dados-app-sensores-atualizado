@@ -1,6 +1,6 @@
 import 'chart.js/auto';
 import React, { useEffect, useState } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import { Bar, Line, Pie } from 'react-chartjs-2';
 import { Picker, ScrollView, StyleSheet, Text, View } from 'react-native';
 import io from 'socket.io-client';
 
@@ -10,12 +10,18 @@ export default function GraphScreen({ route }) {
     const [timeRange, setTimeRange] = useState('lastHour');
     const { token } = route.params;
 
-    // Mapeamento dos sensor_id para os nomes dos ambientes
     const sensorNames = {
         1: 'Cozinha',
         2: 'Sala',
         3: 'Quarto',
         4: 'Escritório',
+    };
+
+    const sensorColors = {
+        1: 'rgba(0, 123, 255, 0.5)', // Cozinha: Azul
+        2: 'rgba(40, 167, 69, 0.5)', // Sala: Verde
+        3: 'rgba(255, 159, 64, 0.5)', // Quarto: Laranja
+        4: 'rgba(255, 205, 86, 0.5)', // Escritório: Amarelo
     };
 
     useEffect(() => {
@@ -50,7 +56,6 @@ export default function GraphScreen({ route }) {
 
         socket.on('sensorDataUpdate', (newData) => {
             console.log('Dados de sensor recebidos:', newData);
-            // Adiciona o novo dado ao estado
             setSensorData(prevData => [...prevData, newData]);
         });
 
@@ -98,16 +103,45 @@ export default function GraphScreen({ route }) {
     const groupedData = getGroupedData();
 
     const renderCharts = () => {
+        if (chartType === 'pie') {
+            // Dados agrupados para o gráfico de pizza
+            const pieData = {
+                labels: Object.keys(groupedData).map(sensorId => sensorNames[sensorId]),
+                datasets: [
+                    {
+                        label: 'Temperatura por Sensor',
+                        data: Object.keys(groupedData).map(sensorId => {
+                            // Calcular a média da temperatura para cada sensor
+                            const totalTemperature = groupedData[sensorId].reduce((sum, item) => sum + item.temperatura, 0);
+                            return totalTemperature / groupedData[sensorId].length || 0;
+                        }),
+                        backgroundColor: Object.keys(groupedData).map(sensorId => sensorColors[sensorId]),
+                    },
+                ],
+            };
+
+            const options = {
+                responsive: true,
+            };
+
+            return (
+                <View style={styles.chartContainer}>
+                    <Text style={styles.sensorTitle}>Gráfico de Pizza dos Sensores</Text>
+                    <Pie data={pieData} options={options} />
+                </View>
+            );
+        }
+
         return Object.keys(groupedData).map(sensorId => {
             const data = {
                 labels: groupedData[sensorId].map(item => new Date(item.timestamp).toLocaleTimeString()),
                 datasets: [
                     {
-                        label: `Temperatura (${sensorNames[sensorId]})`, // Usando o mapeamento para o nome do sensor
+                        label: `Temperatura (${sensorNames[sensorId]})`,
                         data: groupedData[sensorId].map(item => item.temperatura),
-                        borderColor: 'rgb(205, 1, 1)',
-                        backgroundColor: 'rgb(221, 15, 15)',
-                        fill: false,
+                        borderColor: sensorColors[sensorId],
+                        backgroundColor: sensorColors[sensorId],
+                        fill: chartType === 'area',
                         tension: 0.1,
                     },
                 ],
@@ -123,6 +157,7 @@ export default function GraphScreen({ route }) {
                         },
                     },
                     y: {
+                        stacked: chartType === 'area',
                         title: {
                             display: true,
                             text: 'Temperatura (°C)',
@@ -134,8 +169,14 @@ export default function GraphScreen({ route }) {
 
             return (
                 <View key={sensorId} style={styles.chartContainer}>
-                    <Text style={styles.sensorTitle}>Gráfico do Sensor {sensorNames[sensorId]}</Text> {/* Usando o mapeamento para o título do gráfico */}
-                    {chartType === 'line' ? <Line data={data} options={options} /> : <Bar data={data} options={options} />}
+                    <Text style={styles.sensorTitle}>Gráfico do Sensor {sensorNames[sensorId]}</Text>
+                    {chartType === 'line' ? (
+                        <Line data={data} options={options} />
+                    ) : chartType === 'bar' ? (
+                        <Bar data={data} options={options} />
+                    ) : chartType === 'area' ? (
+                        <Line data={data} options={options} />
+                    ) : null}
                 </View>
             );
         });
@@ -166,9 +207,10 @@ export default function GraphScreen({ route }) {
             >
                 <Picker.Item label="Linha" value="line" />
                 <Picker.Item label="Barra" value="bar" />
+                <Picker.Item label="Área" value="area" />
+                <Picker.Item label="Pizza" value="pie" />
             </Picker>
 
-            {/* Adicionando o ScrollView aqui */}
             <ScrollView style={styles.scrollView}>
                 {renderCharts()}
             </ScrollView>
@@ -183,5 +225,5 @@ const styles = StyleSheet.create({
     pickerItem: { height: 40 },
     chartContainer: { marginBottom: 20, width: '100%' },
     sensorTitle: { fontSize: 16, fontWeight: 'bold', marginBottom: 5 },
-    scrollView: { width: '100%' }, // Define a largura do ScrollView
+    scrollView: { width: '100%' },
 });
